@@ -1,0 +1,20 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "kill-aspire",
+      "type": "shell",
+      "command": "Get-Process -Name Aspire.AppHost -ErrorAction SilentlyContinue | ForEach-Object { Stop-Process -Id $_.Id -Force }; exit 0",
+      "problemMatcher": [],
+      "options": {
+        "shell": {
+          "executable": "powershell.exe",
+          "args": ["-NoProfile", "-Command"]
+        }
+      },
+      "presentation": {
+        "reveal": "silent"
+      }
+    }
+  ]
+}

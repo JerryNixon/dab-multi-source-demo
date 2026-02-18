@@ -2,7 +2,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddRazorPages();
 builder.Services.AddHttpClient("dab", client =>
 {
-    var dabUrl = builder.Configuration["DAB_URL"] ?? "http://localhost:5000";
+    var dabUrl = builder.Configuration["DAB_URL"] ?? "http://localhost:5005";
     client.BaseAddress = new Uri(dabUrl);
 });
 

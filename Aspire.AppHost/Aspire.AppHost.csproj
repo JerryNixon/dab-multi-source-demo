@@ -11,7 +11,6 @@
 
   <ItemGroup>
     <PackageReference Include="Aspire.Hosting.SqlServer" Version="13.1.1" />
-    <PackageReference Include="CommunityToolkit.Aspire.Hosting.Azure.DataApiBuilder" Version="13.1.2-beta.516" />
-    <ProjectReference Include="..\web\WebUI.csproj" />
+    <ProjectReference Include="..\web\WebUI.csproj" IsAspireHostProjectReference="true" />
   </ItemGroup>
 </Project>

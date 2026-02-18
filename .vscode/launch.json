@@ -1,0 +1,24 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Aspire AppHost",
+      "type": "coreclr",
+      "request": "launch",
+      "preLaunchTask": "kill-aspire",
+      "program": "${workspaceFolder}/Aspire.AppHost/bin/Debug/net10.0/Aspire.AppHost.dll",
+      "args": [],
+      "cwd": "${workspaceFolder}/Aspire.AppHost",
+      "env": {
+        "ASPNETCORE_ENVIRONMENT": "Development",
+        "DOTNET_ENVIRONMENT": "Development",
+        "ASPIRE_ALLOW_UNSECURED_TRANSPORT": "true",
+        "ASPIRE_DASHBOARD_OTLP_ENDPOINT_URL": "http://localhost:5002",
+        "ASPIRE_DASHBOARD_MCP_ENDPOINT_URL": "http://localhost:5003",
+        "ASPIRE_RESOURCE_SERVICE_ENDPOINT_URL": "http://localhost:5004"
+      },
+      "stopAtEntry": false,
+      "console": "integratedTerminal"
+    }
+  ]
+}
