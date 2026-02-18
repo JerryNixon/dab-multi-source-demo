@@ -1,0 +1,85 @@
+@page
+@model IndexModel
+@{
+    ViewData["Title"] = "Multi-Source DAB Demo";
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>@ViewData["Title"]</title>
+    <style>
+        body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; max-width: 900px; margin: 2rem auto; padding: 0 1rem; background: #f5f5f5; }
+        h1 { color: #333; border-bottom: 2px solid #0078d4; padding-bottom: 0.5rem; }
+        h2 { color: #0078d4; margin-top: 2rem; }
+        .card { background: white; border-radius: 8px; padding: 1rem; margin: 0.5rem 0; box-shadow: 0 1px 3px rgba(0,0,0,0.1); }
+        .badge { display: inline-block; background: #0078d4; color: white; padding: 2px 8px; border-radius: 4px; font-size: 0.8rem; margin-right: 0.5rem; }
+        .badge.stock { background: #107c10; }
+        .badge.score { background: #d83b01; }
+        .price { color: #107c10; font-weight: bold; }
+        .error { background: #fde7e9; color: #a80000; padding: 1rem; border-radius: 8px; }
+        table { width: 100%; border-collapse: collapse; }
+        th, td { text-align: left; padding: 0.6rem; border-bottom: 1px solid #ececec; }
+        th { color: #666; font-size: 0.85rem; text-transform: uppercase; }
+        .source-tag { font-size: 0.7rem; color: #888; }
+        .muted { color: #888; font-size: 0.9rem; }
+    </style>
+</head>
+<body>
+    <h1>Multi-Source DAB Demo</h1>
+
+    @if (Model.Error != null)
+    {
+        <div class="error">@Model.Error</div>
+    }
+    else
+    {
+        <h2>Products Overview <span class="source-tag">(CatalogDb + InventoryDb + RecommendationsDb)</span></h2>
+        <div class="card">
+            <table>
+                <tr>
+                    <th>Product</th>
+                    <th>Category</th>
+                    <th>Price</th>
+                    <th>Total Stock</th>
+                    <th>Warehouses</th>
+                    <th>Recommendation</th>
+                </tr>
+                @foreach (var p in Model.Products)
+                {
+                    var inv = Model.Inventories.Where(i => i.ProductId == p.ProductId).ToList();
+                    var totalStock = inv.Sum(i => i.StockCount);
+                    var warehouses = string.Join(", ", inv.Select(i => i.Warehouse).Distinct().OrderBy(w => w));
+                    var rec = Model.UserRecommendations.FirstOrDefault(r => r.ProductId == p.ProductId);
+                    <tr>
+                        <td><strong>@p.Name</strong></td>
+                        <td>@p.Category</td>
+                        <td class="price">$@p.Price.ToString("F2")</td>
+                        <td>
+                            @if (totalStock > 0)
+                            {
+                                <span class="badge stock">@totalStock</span>
+                            }
+                            else
+                            {
+                                <span class="muted">out of stock</span>
+                            }
+                        </td>
+                        <td>@(string.IsNullOrWhiteSpace(warehouses) ? "-" : warehouses)</td>
+                        <td>
+                            @if (rec != null)
+                            {
+                                <span class="badge score">★ @rec.Score.ToString("0.00")</span>
+                            }
+                            else
+                            {
+                                <span class="muted">-</span>
+                            }
+                        </td>
+                    </tr>
+                }
+            </table>
+        </div>
+    }
+</body>
+</html>

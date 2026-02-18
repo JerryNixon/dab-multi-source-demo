@@ -1,0 +1,21 @@
+@baseUrl = http://localhost:5005
+
+### Health
+GET {{baseUrl}}/health
+
+### REST: Products
+GET {{baseUrl}}/api/products
+
+### REST: Inventory
+GET {{baseUrl}}/api/inventory
+
+### REST: Recommendations
+GET {{baseUrl}}/api/recommendations
+
+### GraphQL: Multi-source query
+POST {{baseUrl}}/graphql
+Content-Type: application/json
+
+{
+  "query": "{ products { items { ProductId Name Category Price } } inventories { items { InventoryId ProductId StockCount Warehouse } } recommendations { items { RecommendationId UserId ProductId Score } } }"
+}

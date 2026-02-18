@@ -1,0 +1,35 @@
+{
+  "$schema": "https://github.com/Azure/data-api-builder/releases/latest/download/dab.draft.schema.json",
+  "data-source": {
+    "database-type": "mssql",
+    "connection-string": "@env('CATALOG_CONNECTION_STRING')"
+  },
+  "data-source-files": [
+    "dab-config-catalog.json",
+    "dab-config-inventory.json",
+    "dab-config-recommendations.json"
+  ],
+  "runtime": {
+    "rest": {
+      "enabled": true,
+      "path": "/api"
+    },
+    "graphql": {
+      "enabled": true,
+      "path": "/graphql",
+      "allow-introspection": true
+    },
+    "mcp": {
+      "enabled": true,
+      "path": "/mcp"
+    },
+    "host": {
+      "mode": "development",
+      "cors": {
+        "origins": ["*"],
+        "allow-credentials": false
+      }
+    }
+  },
+  "entities": {}
+}

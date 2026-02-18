@@ -1,0 +1,43 @@
+# Secrets / local settings
+.env
+.env.*
+!.env.example
+
+**/.github/
+
+# Build artifacts
+**/bin/
+**/obj/
+
+# User / IDE files
+.vs/
+.vscode/*
+!.vscode/extensions.json
+!.vscode/settings.json
+!.vscode/mcp.json
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+
+# Logs / temp
+*.log
+*.tmp
+*.temp
+
+# Test / coverage
+TestResults/
+*.trx
+coverage/
+*.coverage
+*.coveragexml
+
+# NuGet cache folders (project-local)
+packages/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Docker / containers
+docker-data/
