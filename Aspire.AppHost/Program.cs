@@ -48,11 +48,20 @@ var dabServer = builder
         context.Urls.Add(new() { Url = "/health", DisplayText = "Health", Endpoint = context.GetEndpoint("http") });
     })
     .WithOtlpExporter()
-    .WithParentRelationship(catalogDb)
     .WithHttpHealthCheck("/health")
     .WaitFor(catalogDb)
     .WaitFor(inventoryDb)
     .WaitFor(recommendationsDb);
+
+var mcpInspector = builder
+    .AddMcpInspector("mcp-inspector", options =>
+    {
+        options.InspectorVersion = "0.20.0";
+    })
+    .WithMcpServer(dabServer, transportType: McpTransportType.StreamableHttp)
+    .WithParentRelationship(dabServer)
+    .WithEnvironment("DANGEROUSLY_OMIT_AUTH", "true")
+    .WaitFor(dabServer);
 
 var webui = builder
     .AddProject<Projects.WebUI>("webui", launchProfileName: "http")
@@ -63,6 +72,7 @@ var webui = builder
         e.IsProxied = false;
     })
     .WithEnvironment("DAB_URL", dabServer.GetEndpoint("http"))
+    .WithParentRelationship(dabServer)
     .WaitFor(dabServer);
 
 await builder.Build().RunAsync();

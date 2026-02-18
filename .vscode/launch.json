@@ -5,7 +5,7 @@
       "name": "Aspire AppHost",
       "type": "coreclr",
       "request": "launch",
-      "preLaunchTask": "kill-aspire",
+      "preLaunchTask": "kill-and-build",
       "program": "${workspaceFolder}/Aspire.AppHost/bin/Debug/net10.0/Aspire.AppHost.dll",
       "args": [],
       "cwd": "${workspaceFolder}/Aspire.AppHost",

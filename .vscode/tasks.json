@@ -2,14 +2,28 @@
   "version": "2.0.0",
   "tasks": [
     {
+      "label": "build-apphost",
+      "type": "shell",
+      "command": "dotnet build Aspire.AppHost/Aspire.AppHost.csproj",
+      "group": "build",
+      "problemMatcher": ["$msCompile"],
+      "presentation": { "reveal": "silent" }
+    },
+    {
+      "label": "kill-and-build",
+      "dependsOrder": "sequence",
+      "dependsOn": ["kill-aspire", "build-apphost"],
+      "problemMatcher": []
+    },
+    {
       "label": "kill-aspire",
       "type": "shell",
-      "command": "Get-Process -Name Aspire.AppHost -ErrorAction SilentlyContinue | ForEach-Object { Stop-Process -Id $_.Id -Force }; exit 0",
+      "command": "taskkill /F /IM Aspire.AppHost.exe 2>nul & exit 0",
       "problemMatcher": [],
       "options": {
         "shell": {
-          "executable": "powershell.exe",
-          "args": ["-NoProfile", "-Command"]
+          "executable": "cmd.exe",
+          "args": ["/C"]
         }
       },
       "presentation": {
