@@ -2,6 +2,8 @@
 
 Demonstrates Data API Builder's **multi-source config** — one master `dab-config.json` with three child configs, each pointing to a separate SQL Server database. A single DAB instance exposes REST, GraphQL, and MCP endpoints across all three.
 
+> Read the blog article: https://devblogs.microsoft.com/azure-sql/multi-source-data-api-builder/
+
 ## Architecture
 
 .NET Aspire orchestrates all services locally. One SQL Server container hosts three databases. One DAB container serves them all.
